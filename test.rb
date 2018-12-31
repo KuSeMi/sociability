@@ -7,31 +7,15 @@ if (Gem.win_platform?)
   end
 end
 
-require_relative "print_result.rb"
-require_relative "sum_result"
-
-print = PrintResult.new
-test = Test.new
-
+require_relative "lib/print_result"
+require_relative "lib/sum_result"
+puts 'Тест "ВАШ УРОВЕНЬ ОБЩИТЕЛЬНОСТИ"'
 puts "Здравствуйте, как ваше имя?"
 name = STDIN.gets.chomp
+name = " СЕПИСНИТЕЛЬНЫЙ "if name == ''
+puts "Очень приятно #{name} ! Ответьте на вопросы.\n"
 
-if name == nil
-  name = " СЕПИСНИТЕЛЬНЫЙ "
-end
-
-puts "Очень приятно #{name} ! Ответьте на вопросы.\n\n"
-puts "Инструкция: Вашему вниманию предлагается несколько простых вопросов.,
-Отвечайте быстро, однозначно: «ДА = 1», «Нет= 2», «Иногда= 3»\n"
-
-until test.stoped?
-  puts  test.next_question
-  answer = 0
-  while (answer != 1 && answer != 2 &&  answer != 3 )
-    puts "Введите ваш вариант ответа: Да-1, Нет -2, Иногда -3"
-    answer = STDIN.gets.to_i
-  end
-  test.points_result(answer)
-end
-
+test = SumResult.new
+test.points_result
+print = PrintResult.new
 print.print_result(test)
